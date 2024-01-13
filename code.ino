@@ -18,10 +18,10 @@ void loop() {
 
 void DISP(char alpha[]){
     long int instant=millis();
-  while(millis()-instant<=500){
-  for (int i = 0; i < 8; i++) {
+  while(millis()-instant<=500){//display each character for 500ms
+  for (int i = 0; i < 8; i++) {//display one out of 8 rows at a time. Doing it sufficiently fast gives a picture of character in the matrix.
     updateShiftRegister(128>>i);
-    updateShiftRegister((alpha[i]));
+    updateShiftRegister(~(alpha[i]));
     digitalWrite(latchPin, HIGH); 
     }
    }
