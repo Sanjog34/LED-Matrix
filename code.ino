@@ -14,7 +14,10 @@ void loop() {
   DISP(O);
   DISP(G);
 }
-
+void updateShiftRegister(byte data){
+digitalWrite(latchPin,LOW);
+shiftWrite(dataPin,clockPin,LSBFIRST,data);
+}
 
 void DISP(char alpha[]){
     long int instant=millis();
