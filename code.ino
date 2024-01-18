@@ -19,7 +19,7 @@ digitalWrite(latchPin,LOW);
 shiftWrite(dataPin,clockPin,LSBFIRST,data);
 }
 
-void DISP(char alpha[]){
+void DISP(int alpha[]){
     long int instant=millis();
   while(millis()-instant<=500){//display each character for 500ms
   for (int i = 0; i < 8; i++) {//display one out of 8 rows at a time. Doing it sufficiently fast gives a picture of character in the matrix.
