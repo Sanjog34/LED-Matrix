@@ -4,8 +4,22 @@ const int dataPin = 2;
 const int clockPin = 4;
 const int latchPin = 3;
 const int arraySize=8;
-const int numArrays=50;
 int hold,temp[8]={};
+char **container[] = {A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, _}; //this is from where we can easily index every character
+
+int getindex(char val){
+    return val == ' '?26:tolower(val) - 'a';
+}
+
+void getmatrixleds(char **data){
+    for(size_t i=0; data[i] != NULL; i++){
+       temp[i]=atoi(data[i]);
+    }
+    DISP(temp);
+}
+
+char *str = {"LED MATRIX "}; //we will dynamically allocate this
+
 void setup() {
   pinMode(dataPin, OUTPUT);
   pinMode(clockPin, OUTPUT);
@@ -14,33 +28,34 @@ void setup() {
 }
 
 void loop() {
- const char** stringArrays[numArrays] = {S,A,N,J,O,G,_,S,A,P,K,O,T,A,_};
-  convert(stringArrays);    
-}  
+   size_t string_length = strlen(str);
+    for(int i=0; i<string_length; i++){
+//        printf("\n\n%c's index is : %d\n\n",str[i], getindex(str[i]));
+//        //hence now printing the assigned array to it(in LED MATRIX);;
+//        printf("The assigned LED Matrx leds are: \n");
+        getmatrixleds(container[getindex(str[i])]);
 
+    }
 
+}
 void updateShiftRegister(byte data) {
   digitalWrite(latchPin, LOW);
-  shiftOut(dataPin, clockPin, LSBFIRST, data); 
+  shiftOut(dataPin, clockPin, LSBFIRST, data);
 }
 
 void DISP(int alpha[]){
     long int instant=millis();
-  while(millis()-instant<=500){
+  while(millis()-instant<500){
   for (int i = 0; i < 8; i++) {
     updateShiftRegister(128>>i);
     updateShiftRegister(~(alpha[i]));
     digitalWrite(latchPin, HIGH); 
     }
    }
-}
-void convert(char** stringArrays[numArrays]){
-  for (int i = 0; stringArrays[i]!=NULL; ++i) {
-    for (int j = 0; j < arraySize; ++j) {
-        hold=atoi(stringArrays[i][j]);
-        temp[j]=hold;
-//      Serial.println(stringArrays[i][j]);
+    instant=millis();
+   while(millis()-instant<50){
+    updateShiftRegister(0);
+    updateShiftRegister(0);
+    digitalWrite(latchPin, HIGH); 
     }
-    DISP(temp);
-  }
-  }
+   }
