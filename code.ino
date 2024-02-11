@@ -12,7 +12,7 @@ int getindex(char val){
 }
 
 void getmatrixleds(char **data){
-    for(size_t i=0; data[i] != NULL; i++){
+    for(size_t i=0; i<8; i++){
        temp[i]=atoi(data[i]);
     }
     DISP(temp);
@@ -33,9 +33,12 @@ void loop() {
 //        printf("\n\n%c's index is : %d\n\n",str[i], getindex(str[i]));
 //        //hence now printing the assigned array to it(in LED MATRIX);;
 //        printf("The assigned LED Matrx leds are: \n");
-        getmatrixleds(container[getindex(str[i])]);
-
+          getmatrixleds(container[getindex(str[i])]);
     }
+    //     if(Serial.available()){                  //to take input from serial moniter and display in LED_MATRIX, uncomment this portion and comment out the above portion
+    //     char val=Serial.read();       
+    //     getmatrixleds(container[getindex(val)]);
+    // }
 
 }
 void updateShiftRegister(byte data) {
