@@ -18,7 +18,7 @@ void getmatrixleds(char **data){
     DISP(temp);
 }
 
-char *str = {"LED MATRIX "}; //we will dynamically allocate this
+char *str = {"LED MATRIX "}; 
 
 void setup() {
   pinMode(dataPin, OUTPUT);
@@ -35,7 +35,7 @@ void loop() {
 //        printf("The assigned LED Matrx leds are: \n");
           getmatrixleds(container[getindex(str[i])]);
     }
-    //     if(Serial.available()){                  //to take input from serial moniter and display in LED_MATRIX, uncomment this portion and comment out the above portion
+    //     if(Serial.available()){                  //to give input from serial moniter and display in LED_MATRIX, uncomment this portion and comment out the above portion
     //     char val=Serial.read();       
     //     getmatrixleds(container[getindex(val)]);
     // }
